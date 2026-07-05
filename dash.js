@@ -26,17 +26,35 @@ darkModeAnchor.addEventListener("click", HandleDark);
 
 
 
-
 const listIcon = document.getElementById("listIcon");
 
-let shown = document.querySelector(".mySide").classList.contains("collapsed");
+let collapsed = document.querySelector(".mySide").classList.contains("collapsed");
 
 function CollapseSide() {
 
     document.querySelector(".mySide").classList.toggle("collapsed");
     document.querySelector(".myLayout").classList.toggle("collapsed");
 
-    shown = (shown) ? false : true;
+    collapsed = (collapsed) ? false : true;
 }
 
 listIcon.addEventListener("click", CollapseSide);
+
+
+let maxWidth = 920;
+
+window.addEventListener("resize", () => {
+    if(window.innerWidth < maxWidth && !collapsed) {
+        CollapseSide();
+    }
+
+    if(window.innerWidth > maxWidth && collapsed) {
+        CollapseSide();
+    }
+})
+
+window.addEventListener("load", () => {
+    if (window.innerWidth < maxWidth) {
+        CollapseSide();
+    }
+});

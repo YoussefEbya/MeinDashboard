@@ -1,5 +1,4 @@
 
-
 @font-face {
     font-family: "Montserrat";
     src: url("assets/Montserrat-VariableFont_wght.ttf") format("truetype");
@@ -17,20 +16,35 @@
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
-    /* border: 1px solid red; */
 }
 
 
-body{
+body {
     font-family: "Montserrat", sans-serif;
     font-weight: 600;
-    
+
     background: #FEFEFA;
+
+    /* small load animating */
+    animation: pageIn 0.4s ease-out both;
 }
+
 
 body.dark {
     background: #1F1F1E;
     color: #FEFEFA;
+}
+
+
+@keyframes pageIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
@@ -39,7 +53,7 @@ button {
     border: 0;
     cursor: pointer;
     transition: all 0.3s ease;
-    
+
 }
 
 
@@ -47,38 +61,51 @@ ul {
     list-style: none;
 
     li a {
-        text-decoration: none; 
+        text-decoration: none;
         color: inherit;
         transition: all 0.3s ease;
-        
+
     }
+
 }
 
-input::placeholder{
-    color: black;
+input::placeholder, input {
+    font-size: clamp(0.75rem, 0.636rem + 0.57vw, 1rem)
+    /* controls both placeholder and user input font size */
 }
 
-body.dark input::placeholder{
+body.dark input::placeholder, body.dark input {
     color: #FEFEFA;
 }
 
-button:hover, a:hover {
+button:hover,
+a:hover {
     background-color: rgba(0, 0, 0, 0.136) !important;
 }
 
-body.dark button:hover, body.dark a:hover {
+body.dark button:hover,
+body.dark a:hover {
     background-color: rgba(255, 255, 255, 0.136) !important;
 }
 
 
 .myLayout {
     display: grid;
-    grid-template-columns: 250px auto;
-    /* controls the size of the sidebar */
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 15px;
+    /* controls sidebar (left), main layout (right) */
 }
 
+
 .myLayout.collapsed {
-    grid-template-columns: 90px auto;
+    grid-template-columns: 90px minmax(0, 1fr);
+}
+
+
+.myIcon {
+    width: 1.2em;
+    aspect-ratio: 1;
+    /* for all svg icons */
 }
 
 
@@ -86,23 +113,22 @@ body.dark button:hover, body.dark a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* controls aliging of 3 nav items */
+    /* controls aliging of the 3 top nav items */
 
     height: var(--nav-height);
     padding-right: 10px;
     margin-bottom: 25px;
 
     button .myIcon {
-        width:  2rem;
+        width: 2.5em;
         aspect-ratio: 1;
     }
 }
 
 
-
 #navProfile {
+    margin-left: 10px;
     height: 70%;
-    transform: translateY(-8%);
 
     border-radius: 50%;
     object-fit: cover;
@@ -111,14 +137,9 @@ body.dark button:hover, body.dark a:hover {
     img {
         height: 100%;
     }
+
 }
 
-
-
-.myIcon {
-    width:  1.2rem;
-    aspect-ratio: 1;
-}
 
 body.dark .myIcon {
     fill: #FEFEFA;
@@ -127,30 +148,12 @@ body.dark .myIcon {
 }
 
 
-
-.searchForm{
-    position: relative;
-
-    height: 42px;
-    width:  80%;
-    max-width: 500px;
-
-    .myIcon {
-        position: absolute;
-        left: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    input {
-        padding-left: 40px;
-
-        height: 100%;
-        width:  100%;
-
-        border-radius: 7px;
-        border: 1px solid gray;
-    }
+input {
+    height: 100%;
+    width: 100%;
+    border: 1px solid gray;
+    border-radius: 7px;
+    
 }
 
 
@@ -159,13 +162,37 @@ body.dark input {
 }
 
 
+.searchForm {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+
+    height: 42px;
+    width: 80%;
+    max-width: 600px;
+
+
+    /* to add icon to search form */
+    
+    .myIcon {
+        position: relative;
+        left: 30px;
+    }
+
+    input {
+        padding-left: 40px;
+    }
+
+}
+
 
 .mySide .myLogo {
     display: flex;
     align-items: center;
     /* so that the brand logo and brand text are aligned vertically */
 
-    width:  100%;
+    width: 100%;
     height: var(--nav-height);
     margin-bottom: 22px;
 
@@ -175,16 +202,20 @@ body.dark input {
     color: inherit;
 
     img {
-        height:  80%;
+        height: 80%;
         margin-right: 5px;
+        
     }
+
 }
+
 
 .mySide.collapsed a.myLogo {
     justify-content: center;
 }
 
-.mySide.collapsed .sidebarText, .mySide.collapsed #darkModeMoon {
+.mySide.collapsed .sidebarText,
+.mySide.collapsed #darkModeMoon {
     display: none;
 }
 
@@ -193,61 +224,60 @@ body.dark input {
 }
 
 
-
-
 .mySide nav {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     /* makes space between main links and bottom links */
 
-    height: calc(100dvh - 110px);    
+    height: calc(100dvh - 110px);
 }
 
 
-
-#main-links, #bottom-links {
+#main-links,
+#bottom-links {
     display: flex;
     flex-direction: column;
 
     gap: 20px;
     /* betwen each link in main/bottom links */
-    
+
     a {
         height: 40px;
     }
 }
 
 
-
-#main-links li a, #bottom-links li a {
+#main-links li a,
+#bottom-links li a {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
     /* between link icon and text */
 
     width: 100%;
     padding: 0;
     padding-left: 22px;
 
-    font-size: 20px;
+    font-size: clamp(1.125rem, 1.068rem + 0.28vw, 1.25rem);
     font-weight: 450;
 
     .myIcon {
-        width:  1.6rem;
+        width: clamp(1.8rem, 1.709rem + 0.45vw, 2rem);
         aspect-ratio: 1;
     }
+
 }
 
-.mySide.collapsed #main-links li a, .mySide.collapsed  #bottom-links li a {
+.mySide.collapsed #main-links li a,
+.mySide.collapsed #bottom-links li a {
     justify-content: center;
     padding-left: 0;
 }
 
 
-
 #darkModeIcon {
-    margin-left: 30px;
+    /* margin-left: 30px; */
 }
 
 
@@ -255,10 +285,13 @@ body.dark input {
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 35px;
+    margin-bottom: 10px;
+    font-size: clamp(1.125rem, 0.727rem + 1.99vw, 2rem);
 
     .myIcon {
-        width:  5rem;
+        width: 2em;
+        height: 100%;
+        margin-right: 5px;
 
         path {
             fill: currentColor;
@@ -266,18 +299,20 @@ body.dark input {
             stroke-width: 1.2;
         }
     }
+
 }
 
 
 #dashCards {
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
 
     margin: 0 10px 60px;
 
 
 }
+
 
 .dashCard {
     display: flex;
@@ -286,38 +321,44 @@ body.dark input {
     justify-content: center;
     gap: 10px;
 
+    font-size: clamp(0.875rem, 0.705rem + 0.85vw, 1.25rem);
     height: 150px;
 
     border-radius: 10px;
 
     .myIcon {
-        width:  2.2rem;
+        width: 2em;
     }
 
     .dashCardTitle {
-        font-size: 20px;
+        font-size: 1em;
         z-index: 2;
     }
 
-    .dashCardNumber{
-        font-size: 30px;
+    .dashCardNumber {
+        font-size: 1.5em;
         z-index: 2;
     }
+
 }
+
 
 #dc1 {
     position: relative;
     background-color: #4da3ff;
+    animation-delay: 0.05s;
 }
 
 #dc2 {
     position: relative;
     background-color: #ffe6ac;
+    animation-delay: 0.1s;
 }
 
 #dc3 {
     position: relative;
     background-color: #e7d1fc;
+    animation-delay: 0.15s;
 }
 
 body.dark #dc1::after {
@@ -344,18 +385,21 @@ body.dark #dc3::after {
     border-radius: inherit;
 }
 
-#recentActivity {
-    .myIcon {
-        width: 4rem;
-    }
+
+.tableWrapper {
+    display: block;
+    overflow-x: auto;
+    padding-right: 50px;
+    font-size: clamp(0.75rem, 0.636rem + 0.57vw, 1rem);
 }
 
-.users{
 
-    width: 100%;
+.users {
+
+    min-width: 700px;
     height: 400px;
-    padding-right: 50px;
     margin-top: 30px;
+    border-collapse: collapse;
 
     th {
         text-align: left;
@@ -376,22 +420,31 @@ body.dark #dc3::after {
     .type {
         width: 15%;
     }
+
 }
 
 
-@media (max-width : 920px) {
+
+
+@media (max-width : 510px) {
+
+    .myLayout {
+        gap: 5px;
+    }
+
     #dashCards {
         grid-template-columns: auto;
     }
 
-    #main-links li a, #bottom-links li a {
-        justify-content: center;
-        padding-left: 0;
-    }
+}
 
-    .sidebarText {
-        display: none;
-    }
+@media (max-width : 368px) {
 
+    input::placeholder {
+        visibility: hidden;
+    }
 
 }
+
+
+
